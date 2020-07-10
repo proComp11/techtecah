@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title><%= title %></title>
+    <%- include('partials/main_header')%>
+</head>
+
+<body>
+    <!-- Preloader -->
+    <div class="preloader-it">
+        <div class="loader-pendulums"></div>
+    </div>
+    <!-- /Preloader -->
+	
+	<!-- HK Wrapper -->
+	<div class="hk-wrapper hk-alt-nav">
+
+        <!-- Top Navbar -->
+        <%- include('partials/main_page_top_nav') %>
+        <!-- /Top Navbar -->
+
+        <!-- Main Content -->
+        <div class="hk-pg-wrapper">
+			<!-- Container -->
+            <div class="container mt-xl-50 mt-sm-30 mt-15">
+                <!-- Title -->
+               <!-- <div class="hk-pg-header">
+                    <div>
+						<h2 class="hk-pg-title font-weight-600 mb-10"><%= bread_camp %></h2>
+                    </div>
+					<!-- <div class="d-flex">
+                        <div class="btn-group btn-group-sm" role="group">
+							<button type="button" class="btn btn-outline-primary active">today</button>
+							<button type="button" class="btn btn-outline-primary">week</button>
+							<button type="button" class="btn btn-outline-primary">month</button>
+							<button type="button" class="btn btn-outline-primary">quarter</button>
+							<button type="button" class="btn btn-outline-primary">year</button>
+						</div>
+                    </div> -->
+                <!--</div>-->
+                <!-- /Title -->
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-xl-12">
+                    	<% if (bread_camp == 'Home') { %>
+							<%- include('pages/homecontent')%>
+						<% } else if( bread_camp == 'content') { %>
+							 <%- include('pages/subcontent') %>
+						<% } %>
+					</div>
+                </div>
+                <!-- /Row -->
+			</div>
+            <!-- /Container -->
+            <%- include('partials/main_footer') %>	
+</body>
+
+</html>

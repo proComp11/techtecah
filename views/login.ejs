@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+		<title>TechTeach Login</title>
+		<%- include('partials/header') %>
+	</head>
+	<body>
+		<!-- Preloader-->
+		<div class="preloader-it">
+			<div class="loader-pendulums"></div>
+		</div>
+		<!-- /Preloader -->
+		
+		<!-- HK Wrapper -->
+		<div class="hk-wrapper">
+			
+			<!-- Main Content -->
+			<div class="hk-pg-wrapper hk-auth-wrapper">
+				<div class="container-fluid">
+					<div class="row">
+						<div class="col-xl-12 pa-0">
+							<div class="auth-form-wrap pt-xl-0 pt-70">
+								<div class="auth-form w-xl-30 w-lg-55 w-sm-75 w-100">
+									<a class="auth-brand text-center d-block mb-20" href="#">
+										<img class="brand-img" src="/assets/dist/img/site-logo.png" alt="brand"/>
+ 									</a>
+									<form method="post" action="/login">
+										<h1 class="display-4 text-center mb-10">Welcome Back :)</h1>
+										<p class="text-center mb-30">Sign in to your account.</p> 
+										<div class="form-group">
+											<input class="form-control" id="userid" name="userid" placeholder="User id" type="text">
+										</div>
+										<div class="form-group">
+											<div class="input-group">
+												<input class="form-control" id="pass" name="pass" placeholder="Password" type="password">
+												<div class="input-group-append">
+													<span class="input-group-text"><span class="feather-icon"><i data-feather="eye-off"></i></span></span>
+												</div>
+											</div>
+										</div>
+										<button class="btn btn-primary btn-block" type="submit">Login</button>
+										<p class="text-center">Do have an account yet? <a href="#">Sign Up</a></p>
+										<% if (locals.login_errors) {
+											login_errors.forEach(function(error_msg) { %>
+											<div class="alert alert-danger" role="alert"><%= error_msg %></div>
+										<%
+											});
+										} %>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<!-- /Main Content -->
+		
+		</div>
+		<!-- /HK Wrapper -->
+		
+		<%- include('partials/footer') %>
+	</body>
+</html>

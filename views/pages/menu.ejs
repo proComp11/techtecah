@@ -1,0 +1,40 @@
+<section class="hk-sec-wrapper">
+    <h5 class="hk-sec-title">Create Menu</h5>
+    <!--<p class="mb-25">Use the <code>.form-inline</code> class to display a series of labels, form controls, and buttons on a single horizontal row. </p>-->
+    <div class="row">
+        <div class="col-sm">
+            <% if(locals.msg_err) {
+                msg_err.forEach(function(error_msg) { %>
+                <div class="alert alert-danger" role="alert"><%= error_msg %></div>
+                <%
+                    });
+                }
+                %>
+                <% if (messages.success) { %>
+                    <p class="alert alert-success mt-4"><%- messages.success %></p>
+                <% } %>
+                <% if (messages.err_info) { %>
+                    <p class="alert alert-danger mt-4"><%- messages.err_info %></p>
+                <% } %>
+               <form class="form-inline" action="/create" method="post" enctype="multipart/form-data"> 
+                <div class="form-row align-items-center">
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInput">Menu Name</label>
+                        <input type="text" class="form-control mb-2" id="menuname" name="menuname" placeholder="Enter menu name">
+                    </div>
+                    <div class="col-auto">
+                        <label class="sr-only" for="inlineFormInputGroup">Username</label>
+                        <div class="input-group mb-2">
+                            <div class="input-group-prepend">
+                            </div>
+                            <input type="file" class="form-control" id="menuImage" name="menuImage" placeholder="Username">
+                        </div>
+                    </div>
+                    <div class="col-auto">
+                        <button type="submit" class="btn btn-primary mb-2">Submit</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>

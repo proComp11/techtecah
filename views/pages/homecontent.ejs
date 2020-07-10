@@ -1,0 +1,29 @@
+<section class="hk-sec-wrapper">
+    <h5 class="hk-sec-title">Programming Languages</h5>
+    <p></p>
+    <!-- <p class="mb-40">Use text and background utilities to change the appearance of a card.</p> -->
+    <div class="row">
+        <div class="col-sm">
+            <div class="row">
+                <%
+                    if(menuList.length != 0){
+                        menuList.forEach(function(data){
+                %>
+                <div class="col-lg-4 col-md-6 col-sm-12">
+                    <div class="card mb-20">
+                        <img class="card-img-top" src="<%- data.image %>" alt="Card image cap">
+                        <div class="card-body">
+                            <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                            <p class="card-text"><small class="text-muted"><button type="button" onclick="getPage('<%-data.m_name%>')" class="btn btn-gradient-info">Tutorial</button></small></p>
+                        </div>
+                    </div>
+                </div>
+                      
+                <%           
+                        })
+                    }
+                %>
+            </div>
+        </div>
+    </div>
+</section>

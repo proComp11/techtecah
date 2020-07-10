@@ -1,0 +1,39 @@
+ <section class="hk-sec-wrapper">
+    <h5 class="hk-sec-title">Create Contain Menu</h5>
+    <p class="mb-40"><code>Enter Content</code></p>
+    <form id="contentsbt">
+        <div class="row">
+            <div class="col-sm">
+                <div class="row">
+                    <div class="col-md-6 col-sm-12 col-12 mb-20">
+                        <select class="form-control custom-select" name="m_name">
+                            <option selected>Select Menu</option>
+                            <% if(menuList.length != 0){
+                                menuList.forEach(function(data) {
+                            %>     
+                                <option value="<%- data.m_name%>"><%- data.m_name%></option>
+                            <%        
+                                })
+                            }
+                            %>
+                        </select>
+                    </div>
+                </div>
+                <div id="field_wrapper">
+                    <div class="row">
+                        <div class="col-md-6 col-sm-12 col-12">
+                            <input type="text" class="form-control" name="content_name[]" id="content_name[]" />
+                        </div>
+                        <a href="javascript:void(0);" class="add_button" title="Add field"><i class="glyphicon glyphicon-plus"></i></a>   
+                    </div>
+                </div>
+                <br/>
+                <div class="row">
+                    <div class="col-sm">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</section>
