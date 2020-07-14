@@ -76,7 +76,11 @@
             type:'post',
             data: form_data,
             success:function(data){
-                alert(data);
+                alert(data.status);
+                data = JSON.parse(data);
+                if(data.code == '1') {
+                    alert(data.status);
+                }
             }
         });
     });

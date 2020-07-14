@@ -3,6 +3,7 @@ var router = express.Router();
 var path = require('path');
 var multer = require('multer');
 var connection = require('../lib/db');
+var mysql = require('mysql');
 const { body, validationResult } = require('express-validator');
 
 // a middleware function with no mount path. This code is executed for every request to the router
@@ -31,7 +32,7 @@ const ifLoggedin = (req,res,next) => {
 }
 // END OF CUSTOM MIDDLEWARE
 
-/* Get login page */
+/* Get login view page */
 router.get('/', function(req, res, next) {
 	res.render('login', { login_errors:''})
 })
@@ -41,6 +42,7 @@ router.get('/home', ifNotLoggedin, function(req, res, next) {
 	res.render('index', {title: 'TechTeach Admin Dashboard', bread_camp: 'Dashboard', user: req.session.name})
 })
 
+// login function
 router.post('/login', ifLoggedin, [
 		body('userid','userid is empty!').trim().not().isEmpty(),
 		body('pass','Password is empty!').trim().not().isEmpty()
@@ -155,6 +157,7 @@ router.post('/create', ifNotLoggedin, function(req, res, next) {
     });
 })
 
+// content function
 router.get('/contentmenu', ifNotLoggedin, function(req, res, next) {
     var sqlstr = "SELECT * FROM menus";
     connection.query(sqlstr, function(err, data, field) {
@@ -166,25 +169,70 @@ router.get('/contentmenu', ifNotLoggedin, function(req, res, next) {
     })  
 })
 
-router.post('/sbtcontent', ifNotLoggedin,[
-
-    body('m_name','Menu Required').trim().not().isEmpty(),    
-    ], function(req,res,next) {
-        const validation_result = validationResult(req);
-        const {menu,content} = req.body;
-        if(validation_result.isEmpty()){
-            res.json({
-                code:'1',
-                status: 'Ok'
-            })
+// sub-content function
+router.post('/sbtcontent', ifNotLoggedin, function(req,res,next) {
+    const menu = req.body.m_name;
+    const smenu = req.body.content_name;
+    var id = 0;
+    var succFlag;
+    const iterator = smenu.values();
+    //console.log(menu);
+    //console.log(smenu);
+    //console.log(smenu.length);
+    // fetch id by menu name
+    let sqlque = 'SELECT m_id FROM menus WHERE m_name = ' +mysql.escape(menu);
+    connection.query(sqlque, function(err, data, fields) {
+        if(err) {
+            throw err;
         } else {
-            let allErrors = validation_result.errors.map((error) => {
-                return error.msg;
-            });
-            res.json({
-                code:'0',
-                status: allErrors
-            })
+            //console.log(data);
+            //console.log(fields);
+            //id = data.m_id;
+            for (const value of iterator) {
+                //console.log(value);
+                var info = {
+                    con_name : value,
+                    m_id : data[0].m_id,
+                    course_name : menu
+                }
+                connection.query('INSERT INTO content SET ?', info, function(error, result) {
+                    if(error) {
+                        throw error;
+                    } else {
+                        if(result.affectedRows > 0) {
+                            succFlag = result.affectedRows;
+                            //console.log(succFlag);
+                        }
+                    }
+                })
+            }
         }
+    })
+    //console.log(succFlag);
+    if(succFlag != 0) {
+        res.json({
+            code: '1',
+            status: 'Data Successfully Saved'
+        })
+    }else {
+        res.json({
+            code: '0',
+            status:'Failed To Save Data'
+        })
+    }
+    /*if(menu != '' && smenu != '') {
+        res.json({
+            code: '1',
+            status: 'ok',
+            menus: menu,
+            smenu: smenu
+        })
+    }else {
+        res.json({
+            code: '0',
+            status:'failed'
+        })
+    }*/
 })
+
 module.exports = router;
