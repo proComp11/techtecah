@@ -157,7 +157,7 @@ router.post('/create', ifNotLoggedin, function(req, res, next) {
     });
 })
 
-// content function
+// content page function
 router.get('/contentmenu', ifNotLoggedin, function(req, res, next) {
     var sqlstr = "SELECT * FROM menus";
     connection.query(sqlstr, function(err, data, field) {
@@ -168,6 +168,12 @@ router.get('/contentmenu', ifNotLoggedin, function(req, res, next) {
         }
     })  
 })
+
+//route for containt details page
+/*router.get('/createdetails', ifNotLoggedin, function(req, res, next) {
+
+})*/
+
 
 // sub-content function
 router.post('/sbtcontent', ifNotLoggedin, function(req,res,next) {
