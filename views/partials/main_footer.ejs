@@ -61,6 +61,12 @@
 	<!-- Peity JavaScript -->
     <script src="/assets/vendors/peity/jquery.peity.min.js"></script>
    
+     <!-- Tinymce JavaScript -->
+    <script src="/assets/vendors/tinymce/tinymce.min.js"></script>
+
+    <!-- Tinymce Wysuhtml5 Init JavaScript -->
+    <script src="/assets/dist/js/tinymce-data.js"></script>
+
     <!-- Init JavaScript -->
     <script src="/assets/dist/js/init.js"></script>
 	<script src="/assets/dist/js/dashboard3-data.js"></script>
@@ -76,10 +82,17 @@
             type:'post',
             data: form_data,
             success:function(data){
-                alert(data.status);
-                data = JSON.parse(data);
+                document.getElementById("succ").innerHTML = '';
+                document.getElementById("fail").innerHTML = '';
                 if(data.code == '1') {
-                    alert(data.status);
+                    document.getElementById("succ").style.display = 'block';
+                    $("#succ").append('<strong>Success!</strong>'+data.status);
+                    document.getElementById("contentsbt").reset();
+                }else{
+                    document.getElementById("fail").style.display = 'block';
+                    $().append('<strong>Danger!</strong> '+data.status);
+                    document.getElementById("contentsbt").reset();
+                    
                 }
             }
         });

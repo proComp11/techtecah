@@ -1,0 +1,49 @@
+<!-- Container -->
+            <div class="container">
+                <!-- Title -->
+                <div class="hk-pg-header">
+                    <h4 class="hk-pg-title"><span class="pg-title-icon"><span class="feather-icon"><i data-feather="edit-3"></i></span></span>Enter Details</h4>
+                </div>
+                <!-- /Title -->
+
+                <!-- Row -->
+                <div class="row">
+                    <div class="col-xl-12">
+                        <section class="hk-sec-wrapper">
+                            <h5 class="hk-sec-title">Editor</h5>
+                            <p class="mb-40">Content Write Here</p>
+                            <div class="row">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control custom-select" name="m_name">
+                                        <option selected>Select Menu</option>
+                                        <% if(menuList.length !=0 ) {
+                                            menuList.forEach(function(data) {
+                                        %>        
+                                             <option value="<%- data.m_id%>"><%- data.m_name%></option>
+                                        <%     
+                                            })
+                                        }
+                                        %>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row" id="cntMenu" style="display:none">
+                                <div class="col-md-6 form-group">
+                                    <select class="form-control custom-select" name="m_name"> 
+                                    // dynamic population menus
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm">
+                                    <div class="tinymce-wrap">
+                                        <textarea class="tinymce"></textarea>
+                                    </div>
+                                </div>
+                            </div>
+                        </section>
+                    </div>
+                </div>
+                <!-- /Row -->
+            </div>
+            <!-- /Container -->

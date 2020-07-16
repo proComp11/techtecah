@@ -170,9 +170,16 @@ router.get('/contentmenu', ifNotLoggedin, function(req, res, next) {
 })
 
 //route for containt details page
-/*router.get('/createdetails', ifNotLoggedin, function(req, res, next) {
-
-})*/
+router.get('/createdetails', ifNotLoggedin, function(req, res, next) {
+    let sqlstr = "SELECT * FROM menus";
+    connection.query(sqlstr, function(err, data, field) {
+        if(err) {
+            throw err;
+        } else {
+            res.render('index', {title: 'TechTech Admin Dashboard', bread_camp: 'Add_Details', user: req.session.name, menuList: data, msg_err: '' });
+        }
+    })
+})
 
 
 // sub-content function
@@ -226,19 +233,6 @@ router.post('/sbtcontent', ifNotLoggedin, function(req,res,next) {
             status:'Failed To Save Data'
         })
     }
-    /*if(menu != '' && smenu != '') {
-        res.json({
-            code: '1',
-            status: 'ok',
-            menus: menu,
-            smenu: smenu
-        })
-    }else {
-        res.json({
-            code: '0',
-            status:'failed'
-        })
-    }*/
 })
 
 module.exports = router;

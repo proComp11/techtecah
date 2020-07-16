@@ -51,7 +51,9 @@
 							<%- include('pages/menu') %>
 						<% } else if( bread_camp == 'content_Menu') { %>
                             <%- include('pages/content')%>
-                        <% } %>   
+                        <% } else if (bread_camp == 'Add_Details') { %> 
+                            <%- include('pages/details')%>
+                        <% } %>     
 					</div>
                 </div>
                 <!-- /Row -->
@@ -59,5 +61,4 @@
             <!-- /Container -->
             <%- include('partials/main_footer') %>	
 </body>
-
 </html>
