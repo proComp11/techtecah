@@ -121,5 +121,28 @@
             $(this).parent('div').remove(); //Remove field html
             x--; //Decrement field counter
         });
+
+        $('#m_name').change(function() {
+            var item = $('#m_name').val();
+            alert(item);
+            $.ajax({
+                type:"POST",
+                url:"/fetchSbtContent",
+                data:{ selectedItem : item},
+                success:function(data){
+                    alert(data.status.length);
+                    console.log(data);
+                    console.log(data.status.length);
+                    if(data.code ==  '1') {
+                        document.getElementById('cntMenu').style.display = 'block';
+                        $('#sub_name').empty();
+                        $('#sub_name').append("<option disabled selected>Select Content</option>");    
+                        for(var i=0; i<data.status.length; i++){
+                            $('#sub_name').append('<option value="'+data.status[i].con_id+'">'+data.status[i].con_name+'</option>');
+                        }
+                    }
+                }
+            });
+        });
     });
     </script>

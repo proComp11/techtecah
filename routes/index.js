@@ -235,4 +235,22 @@ router.post('/sbtcontent', ifNotLoggedin, function(req,res,next) {
     }
 })
 
+//fetching subcontent menu by menu id
+router.post('/fetchSbtContent', ifNotLoggedin, function(req, res, next) {
+    const menu_id = req.body.selectedItem;
+    console.log(menu_id);
+
+    let sqlque = 'SELECT * FROM content WHERE m_id= ' + mysql.escape(menu_id) +'AND isComplete=0';
+    connection.query(sqlque, function(err, data, fields) {
+        if(err) {
+            throw err;
+        } else {
+            res.json({
+                code : '1',
+                status: data
+            })
+        }
+    })
+})
+
 module.exports = router;

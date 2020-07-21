@@ -14,8 +14,8 @@
                             <p class="mb-40">Content Write Here</p>
                             <div class="row">
                                 <div class="col-md-6 form-group">
-                                    <select class="form-control custom-select" name="m_name">
-                                        <option selected>Select Menu</option>
+                                    <select class="form-control custom-select" name="m_name" id="m_name">
+                                        <option disabled selected>Select Menu</option>
                                         <% if(menuList.length !=0 ) {
                                             menuList.forEach(function(data) {
                                         %>        
@@ -29,7 +29,7 @@
                             </div>
                             <div class="row" id="cntMenu" style="display:none">
                                 <div class="col-md-6 form-group">
-                                    <select class="form-control custom-select" name="m_name"> 
+                                    <select class="form-control custom-select" name="sub_name" id="sub_name"> 
                                     // dynamic population menus
                                     </select>
                                 </div>
