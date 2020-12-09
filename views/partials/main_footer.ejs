@@ -90,9 +90,41 @@
                     document.getElementById("contentsbt").reset();
                 }else{
                     document.getElementById("fail").style.display = 'block';
-                    $().append('<strong>Danger!</strong> '+data.status);
+                    $("#fail").append('<strong>Danger!</strong> '+data.status);
                     document.getElementById("contentsbt").reset();
                     
+                }
+            }
+        });
+    });
+
+    $('#pubForm').submit(function(e) {
+        e.preventDefault();
+        var m_id = document.getElementById('m_name').value;
+        var sub_id = document.getElementById('sub_name').value;
+        tinyMCE.triggerSave();
+        var ed = tinyMCE.get('pub_content');
+        var pcnt = ed.getContent();
+        alert(m_id + ' ' + sub_id+ ' ' + pcnt);
+        $.ajax({
+            type:"post",
+            url:'/publishContent',
+            data: {
+                m_id: m_id,
+                sub_name : sub_id,
+                pub_cnt : pcnt
+            },
+            success:function(data) {
+                document.getElementById("succ").innerHTML = '';
+                document.getElementById("fail").innerHTML = '';
+                if(data.code == '1'){
+                    document.getElementById("succ").style.display = 'block';
+                    $("#succ").append('<strong>Success!</strong>'+data.status);
+                    document.getElementById("pubForm").reset();
+                }else{
+                    document.getElementById("fail").style.display = 'block';
+                    $("#fail").append('<strong>Danger!</strong> '+data.status);
+                    document.getElementById("pubForm").reset();
                 }
             }
         });
@@ -124,13 +156,13 @@
 
         $('#m_name').change(function() {
             var item = $('#m_name').val();
-            alert(item);
+            //alert(item);
             $.ajax({
                 type:"POST",
                 url:"/fetchSbtContent",
                 data:{ selectedItem : item},
                 success:function(data){
-                    alert(data.status.length);
+                    //alert(data.status.length);
                     console.log(data);
                     console.log(data.status.length);
                     if(data.code ==  '1') {

@@ -189,18 +189,12 @@ router.post('/sbtcontent', ifNotLoggedin, function(req,res,next) {
     var id = 0;
     var succFlag;
     const iterator = smenu.values();
-    //console.log(menu);
-    //console.log(smenu);
-    //console.log(smenu.length);
     // fetch id by menu name
     let sqlque = 'SELECT m_id FROM menus WHERE m_name = ' +mysql.escape(menu);
     connection.query(sqlque, function(err, data, fields) {
         if(err) {
             throw err;
         } else {
-            //console.log(data);
-            //console.log(fields);
-            //id = data.m_id;
             for (const value of iterator) {
                 //console.log(value);
                 var info = {
@@ -251,6 +245,53 @@ router.post('/fetchSbtContent', ifNotLoggedin, function(req, res, next) {
             })
         }
     })
+})
+
+// submit publish data into the database
+router.post('/publishContent', ifNotLoggedin, function(req, res, next) {
+    const menu_id = req.body.m_id;
+    const sub_menu_id = req.body.sub_name;
+    const pub_cnt = req.body.pub_cnt;
+    var succInsFlag;
+    var succUpdFlag;
+    console.log(menu_id + ' ' + sub_menu_id + ' ' + pub_cnt );
+    var info = {
+        con_id: sub_menu_id,
+        m_id:menu_id,
+        con_info: pub_cnt
+    }
+    connection.query('INSERT INTO contentdetails SET ?', info, function(error, result){
+        if(error){
+            throw error;
+        }
+        else{
+            if(result.affectedRows > 0){
+                succInsFlag = result.affectedRows;
+                let sqlUpd = 'UPDATE content SET isComplete = ? WHERE con_id = ?';
+                let data = ['1',sub_menu_id];
+                connection.query(sqlUpd, data,(error, results, fields)=>{
+                    if(error){
+                        throw error;
+                    }else{
+                        if(results.affectedRows > 0 ){
+                            succUpdFlag = results.affectedRows;
+                        }
+                    }
+                });
+            }
+        }
+    })
+    if(succInsFlag != 0 && succUpdFlag != 0){
+        res.json({
+            code: '1',
+            status: 'Data Successfully Saved'
+        })
+    }else{
+        res.json({
+            code: '0',
+            status:'Failed To Save Data'
+        })
+    }    
 })
 
 module.exports = router;

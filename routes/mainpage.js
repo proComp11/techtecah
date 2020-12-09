@@ -34,6 +34,7 @@ router.get('/tuto/:id', function(req, res){
 	})
 })
 
+// getting details contents
 router.get('/detail/:text', function(req, res) {
 	var con_detls = req.params.text;
 	console.log(con_detls);

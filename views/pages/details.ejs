@@ -12,36 +12,51 @@
                         <section class="hk-sec-wrapper">
                             <h5 class="hk-sec-title">Editor</h5>
                             <p class="mb-40">Content Write Here</p>
-                            <div class="row">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control custom-select" name="m_name" id="m_name">
-                                        <option disabled selected>Select Menu</option>
-                                        <% if(menuList.length !=0 ) {
-                                            menuList.forEach(function(data) {
-                                        %>        
-                                             <option value="<%- data.m_id%>"><%- data.m_name%></option>
-                                        <%     
-                                            })
-                                        }
-                                        %>
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row" id="cntMenu" style="display:none">
-                                <div class="col-md-6 form-group">
-                                    <select class="form-control custom-select" name="sub_name" id="sub_name"> 
-                                    // dynamic population menus
-                                    </select>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm">
-                                    <div class="tinymce-wrap">
-                                        <textarea class="tinymce"></textarea>
+                            <form id="pubForm">
+                                <div class="row">
+                                    <div class="col-md-6 form-group">
+                                        <select class="form-control custom-select" name="m_id" id="m_name">
+                                            <option disabled selected>Select Menu</option>
+                                            <% if(menuList.length !=0 ) {
+                                                menuList.forEach(function(data) {
+                                            %>        
+                                                 <option value="<%- data.m_id%>"><%- data.m_name%></option>
+                                            <%     
+                                                })
+                                            }
+                                            %>
+                                        </select>
                                     </div>
                                 </div>
-                            </div>
-                        </section>
+                                <div class="row" id="cntMenu" style="display:none">
+                                    <div class="col-md-6 form-group">
+                                        <select class="form-control custom-select" name="sub_name" id="sub_name"> 
+                                        // dynamic population menus
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <div class="tinymce-wrap">
+                                            <textarea class="tinymce" name="pub_content" id="pub_content"></textarea>
+                                        </div>
+                                    </div>
+                                </div>
+                                <br/>
+                                <div class="row">
+                                    <div class="col-sm">
+                                        <button type="submit" class="btn btn-success">Publish</button>
+                                    </div>
+                                    <div class="alert alert-success" style="display:none" id="succ">
+              
+                                    </div>
+                                    <div class="alert alert-danger" style="display:none" id="fail">
+                                      
+                                    </div>
+                                </div>
+                            </section>
+                        </form>
+
                     </div>
                 </div>
                 <!-- /Row -->
